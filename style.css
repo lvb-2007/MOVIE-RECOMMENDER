@@ -1,0 +1,8 @@
+body { font-family: sans-serif; background: #111; color: #eee; margin: 0; padding: 20px; }
+header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+input { padding: 10px; width: 260px; border-radius: 6px; border: none; }
+#movies { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+.card { background: #1e1e1e; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform .2s; }
+.card:hover { transform: scale(1.04); }
+.card img { width: 100%; display: block; }
+.card p { margin: 8px; font-size: 14px; }
