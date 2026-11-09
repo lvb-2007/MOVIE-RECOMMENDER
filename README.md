@@ -21,4 +21,4 @@ HTML, CSS, JavaScript, TMDB API
 3. Open `index.html` with Live Server
 
 ## Live demo
-(link goes here after deployment)
+ https://lvb-2007.github.io/MOVIE-RECOMMENDER/
