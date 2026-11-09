@@ -6,3 +6,5 @@ input { padding: 10px; width: 260px; border-radius: 6px; border: none; }
 .card:hover { transform: scale(1.04); }
 .card img { width: 100%; display: block; }
 .card p { margin: 8px; font-size: 14px; }
+.card button { width: calc(100% - 16px); margin: 0 8px 8px; padding: 6px; border: none; border-radius: 6px; background: #e50914; color: white; cursor: pointer; }
+#watchlistBtn, select { padding: 10px; border-radius: 6px; border: none; }

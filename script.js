@@ -8,6 +8,19 @@ async function getMovies(path) {
   const res = await fetch(`${BASE}${path}${sep}api_key=${API_KEY}`);
   const data = await res.json();
   return data.results || [];
+
+  function getWatchlist() {
+  return JSON.parse(localStorage.getItem("watchlist")) || [];
+}
+
+function toggleWatchlist(movie) {
+  let list = getWatchlist();
+  if (list.some(m => m.id === movie.id)) {
+    list = list.filter(m => m.id !== movie.id);
+  } else {
+    list.push(movie);
+  }
+  localStorage.setItem("watchlist", JSON.stringify(list));
 }
 
 function showMovies(movies) {
@@ -18,9 +31,24 @@ function showMovies(movies) {
     card.innerHTML = `<img src="${IMG + m.poster_path}" alt="${m.title}">
                       <p>${m.title} ⭐ ${m.vote_average.toFixed(1)}</p>`;
     card.onclick = () => showRecommendations(m);
+
+    const btn = document.createElement("button");
+    const label = () => getWatchlist().some(x => x.id === m.id) ? "✓ Saved" : "+ Watchlist";
+    btn.textContent = label();
+    btn.onclick = e => {
+      e.stopPropagation();
+      toggleWatchlist(m);
+      btn.textContent = label();
+    };
+    card.appendChild(btn);
     moviesEl.appendChild(card);
   });
 }
+
+document.getElementById("watchlistBtn").onclick = () => {
+  headingEl.textContent = "My Watchlist";
+  showMovies(getWatchlist());
+};
 
 async function showRecommendations(movie) {
   headingEl.textContent = `Because you liked "${movie.title}"`;
