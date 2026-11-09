@@ -36,3 +36,27 @@ document.getElementById("search").addEventListener("keydown", async e => {
 });
 
 (async () => showMovies(await getMovies("/trending/movie/week")))();
+const genreEl = document.getElementById("genre");
+
+async function loadGenres() {
+  const res = await fetch(`${BASE}/genre/movie/list?api_key=${API_KEY}`);
+  const data = await res.json();
+  data.genres.forEach(g => {
+    const opt = document.createElement("option");
+    opt.value = g.id;
+    opt.textContent = g.name;
+    genreEl.appendChild(opt);
+  });
+}
+
+genreEl.addEventListener("change", async () => {
+  if (!genreEl.value) {
+    headingEl.textContent = "Trending this week";
+    showMovies(await getMovies("/trending/movie/week"));
+    return;
+  }
+  headingEl.textContent = genreEl.options[genreEl.selectedIndex].text + " movies";
+  showMovies(await getMovies(`/discover/movie?with_genres=${genreEl.value}&sort_by=popularity.desc`));
+});
+
+loadGenres();
